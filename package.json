@@ -1,0 +1,45 @@
+{
+  "name": "signalant",
+  "description": "",
+  "version": "1.0.2",
+  "private": true,
+  "author": "RedQ Team",
+  "license": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "del-cli": "^1.1.0",
+    "husky": "^1.1.4",
+    "lerna": "^3.4.3",
+    "lint-staged": "^8.0.4",
+    "prettier": "^1.15.2"
+  },
+"resolutions": {
+"image-webpack-loader/imagemin-pngquant": "5.0.1"
+},
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "del-dist": "lerna exec --parallel -- del-cli dist",
+    "prebuild": "yarn del-dist",
+    "web": "cd packages/landing && yarn dev",
+    "build": "cd packages/landing && next build",
+    "start": "cd packages/landing && next start -p $PORT",
+    "heroku-postbuild": "npm run build",
+    "format": "prettier --trailing-comma es5 --single-quote --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'"
+  },
+  "husky": {
+    "hooks": {
+      
+    }
+  },
+  "lint-staged": {
+    "*.{js,md,css}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ]
+  }
+}
